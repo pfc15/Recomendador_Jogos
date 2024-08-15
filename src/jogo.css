@@ -1,0 +1,73 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+    height: 100vh; /* Ajuste a altura conforme necessário */
+    gap: 10px;
+    background-color: #f9f9f9;
+}
+
+.section {
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.section-65 {
+    flex: 0 0 65%; /* Ocupa 65% da largura */
+    background-color: #f0f0f0;
+    overflow-y: scroll;
+    display: flex;
+    justify-content: center;
+}
+
+.section-35 {
+    flex: 0 0 35%; /* Ocupa 35% da largura */
+    background-color: #dcdcdc;
+}
+
+.card {
+    margin-left: auto;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    height: 15%;
+    padding: 10px;
+    margin: 10px;
+    box-sizing: border-box;
+    display: flex;
+    transition: transform 0.2s;
+}
+
+.card img {
+    display: inline;
+    border-radius: 5px;
+}
+
+.card h3 {
+    display: inline;
+    margin: 10px 0 5px;
+    font-size: 18px;
+}
+
+.card p {
+    display: inline;
+    margin: 0;
+    color: #666;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card div{
+    margin: auto;
+}
+
