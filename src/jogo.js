@@ -6,6 +6,7 @@ async function FetchJogos() {
         const container = document.getElementById("jogos");
         jogos.forEach(jogo => {
         const div_card = document.createElement('div');
+        div_card.id = jogo.nome
         const img = document.createElement('img')
         img.src = "assets/celeste.jpg"
       const div = document.createElement('div');
@@ -62,17 +63,33 @@ document.getElementById("proximo").addEventListener("click", async () => {
 });
 
 
-function colocacao(){
-    container = document.getElementById("jogos")
-    filhos = container.children;
-    ranking = Array(5).fill("");
-    for (var i=0; i<filhos.length; i++){
-        posicao = filhos[i].getElementsByTagName("select")[0].value;
-        ranking[posicao-1] = filhos[i].getElementsByTagName("h3")[0].textContent;
+function colocacao(event){
+    console.log("fui chamado");
+    if (event && event.target){
+        const disparador = event.target.parentNode;
+        const disparador_nome = disparador.getElementsByTagName("h3")[0].innerText
+        disparador_posicao = event.target.value
+        container = document.getElementById("jogos")
+        filhos = container.children;
+        resp = document.getElementById("greeting");
+        ranking = resp.innerText.split(';');
+        if (disparador_nome in ranking){
+            ranking[ranking.indexOf(disparador_nome)] = ""
+        }
+        for (var i=0;i<filhos.length;i++){
+            if (filhos[i].getElementsByTagName("select")[0].value == disparador_posicao && disparador_nome != filhos[i].getElementsByTagName("h3")[0].textContent){
+                filhos[i].getElementsByTagName("select")[0].value = 0;
+            }
+        }
+        
+        ranking[disparador_posicao-1] = disparador_nome
+        
+        resp.innerText = "";
+        for (var i=0; i<5;i++){
+            resp.innerText += ranking[i] + ";";
+        }
+    } else{
+        console.log("deu ruim rapasiada");
     }
-    resp = document.getElementById("greeting");
-    resp.innerText = "";
-    for (var i=0; i<5;i++){
-        resp.innerText += ranking[i] + "; ";
-    }
+    
 }
