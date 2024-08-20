@@ -1,4 +1,5 @@
 const { invoke } = window.__TAURI__.tauri;
+ranking = ["","","","",""];
 
 async function FetchJogos() {
     try {
@@ -8,7 +9,7 @@ async function FetchJogos() {
         const div_card = document.createElement('div');
         div_card.id = jogo.nome
         const img = document.createElement('img')
-        img.src = "assets/celeste.jpg"
+        img.src = "../assets/celeste.jpg"
       const div = document.createElement('div');
       div_card.classList.add('card')
       div_card.appendChild(img);
@@ -56,23 +57,21 @@ window.onload = function() {
 
 
 document.getElementById("proximo").addEventListener("click", async () => {
-    const name = "Tauri User"; // ou você pode pegar o nome de um input
-    console.log('ola');
-    const greeting = await invoke("teste", { num:1});
-    document.getElementById("greeting").innerText = greeting;
+    localStorage.setItem('ranking', JSON.stringify(ranking));
+    window.location.href = '../resposta/resposta.html';
 });
 
 
 function colocacao(event){
-    console.log("fui chamado");
     if (event && event.target){
         const disparador = event.target.parentNode;
         const disparador_nome = disparador.getElementsByTagName("h3")[0].innerText
         disparador_posicao = event.target.value
         container = document.getElementById("jogos")
+
         filhos = container.children;
         resp = document.getElementById("greeting");
-        ranking = resp.innerText.split(';');
+
         if (disparador_nome in ranking){
             ranking[ranking.indexOf(disparador_nome)] = ""
         }
