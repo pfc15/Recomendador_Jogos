@@ -23,20 +23,29 @@ fn get_jogos() -> Vec<ler_arquivo::card> {
     jogos
 }
 
-fn ler_json(arquivo:String) -> Vec<String> {
+fn ler_json(arquivo:String) -> Vec<Jogo> {
     let arquivo:String = arquivo[1..arquivo.len() - 1].to_string();
     let lista:Vec<String> = arquivo.split(",")
     .map(|s| s[1..s.len() - 1].trim().to_string()) // Convert each &str to String
     .collect();
-    lista.clone()
+    let mut retorno:Vec<Jogo> = Vec::new(); 
+    for nome in lista {
+        retorno.push(
+            Jogo{
+                nome:nome,
+                horas_jogadas:0
+            }
+        )
+    }
+    retorno
 }
 
 #[tauri::command]
-fn get_resposta (jogos:String) ->  Vec<String>{
+fn get_resposta (jogos:String) ->  Vec<Jogo>{
     let lista = ler_json(jogos.clone());
     println!("olha oq eu recebi:");
     for item in &lista{
-        println!("{}",item);
+        println!("{}",item.nome);
     }
     print!("{}", lista.len());
     lista

@@ -1,8 +1,9 @@
 use std::collections::HashMap;
 use std::collections::BinaryHeap;
 use std::cmp::Ordering;
+use serde::Serialize;
 
-#[derive(Clone, Eq, PartialEq)]
+#[derive(Clone, Eq, PartialEq, Serialize)]
 pub struct Jogo {
     pub nome: String,
     pub horas_jogadas: i32,

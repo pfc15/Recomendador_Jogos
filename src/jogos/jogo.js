@@ -9,7 +9,7 @@ async function FetchJogos() {
         const div_card = document.createElement('div');
         div_card.id = jogo.nome
         const img = document.createElement('img')
-        img.src = "../assets/celeste.jpg"
+        img.src = jogo.imagem
       const div = document.createElement('div');
       div_card.classList.add('card')
       div_card.appendChild(img);

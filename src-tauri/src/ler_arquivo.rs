@@ -8,6 +8,7 @@ use rand::Rng;
 pub struct card{
     nome:String,
     genero:String,
+    imagem:String
 }
 
 fn bubble_sort(lista: Vec<Jogo>) -> Vec<Jogo> {
@@ -79,10 +80,19 @@ pub fn leitura_comeco(caminho: &str) ->Vec<card> {
         if c == ','{
             nome_bool = !nome_bool;
         }else if c == '\n'{
-                array.push(card{
-                    nome:nome.clone(), 
-                    genero:genero.clone(),
-                });
+            let mut  imagem:String = "../assets/".to_string();
+            let resto = nome.clone()
+                .to_lowercase().replace(" ", "_")
+                .replace("'", "")
+                .replace("é", "e");
+            imagem.push_str(&resto);
+            imagem.push_str(".jpg");
+
+            array.push(card{
+                nome:nome.clone(), 
+                genero:genero.clone(),
+                imagem:imagem.clone()
+            });
             
             nome_bool = !nome_bool;
             nome = String::new();
@@ -100,8 +110,8 @@ pub fn leitura_comeco(caminho: &str) ->Vec<card> {
     let mut rgn = rand::thread_rng();
     let mut retorno:Vec<card> = Vec::new();
     let mut numeros:Vec<usize> = Vec::new();
-    let mut num = 0;
-    for i in 0..10 {
+    let mut num;
+    for _i in 0..10 {
 
         num = rgn.gen_range(0..array.len());
         while numeros.contains(&num) {
