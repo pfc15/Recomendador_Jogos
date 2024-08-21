@@ -4,6 +4,7 @@ use ler_arquivo::leitura;
 use merge_sort::Jogo;
 use std::collections::BinaryHeap;
 use std::collections::HashMap;
+use std::time::Instant;
 
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
@@ -15,7 +16,7 @@ fn greet(name: &str) -> String {
 
 
 #[tauri::command]
-fn get_jogos() -> Vec<ler_arquivo::card> {
+fn get_jogos() -> Vec<ler_arquivo::Card> {
     let caminho = "./dados/jogos.csv";
     let jogos = ler_arquivo::leitura_comeco(caminho);
     jogos
@@ -41,7 +42,6 @@ fn ler_json(arquivo:String) -> Vec<Jogo> {
 #[tauri::command]
 fn get_resposta (jogos:String) ->  Jogo {
     let ranking_usuario = ler_json(jogos.clone());
-    println!("olha oq eu recebi:");
     let generos = ["retro.csv", "estrategia.csv", "indie.csv", "fps.csv", "fighter.csv"];
     let mut mais_compativel = merge_sort::MergeSort{
         comparado: Vec::new(),
@@ -51,7 +51,7 @@ fn get_resposta (jogos:String) ->  Jogo {
         hash_posicoes: HashMap::new()
     };
 
-
+    let start = Instant::now();
     for g in generos {
         let mut caminho = String::from("../src-tauri/dados/");
         caminho.push_str(g);
@@ -62,12 +62,15 @@ fn get_resposta (jogos:String) ->  Jogo {
         }
     }
     let retorno= mais_compativel.recomendacoes.pop().clone();
+    let duration = start.elapsed();
+    println!("Time taken: {:?}", duration);
 
     retorno.expect("heap não pode estar vazio")
 }
 
 
 fn main() {
+    
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![greet, get_jogos, get_resposta])
         .run(tauri::generate_context!())

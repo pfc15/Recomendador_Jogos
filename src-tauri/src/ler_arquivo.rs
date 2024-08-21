@@ -1,11 +1,11 @@
-//use std::env;
-use std::{clone, collections::btree_map::Range, fs, ptr::null};
+
+use std::fs;
 use crate::merge_sort::Jogo;
 use serde::Serialize;
 use rand::Rng;
 
 #[derive(Clone, Serialize)]
-pub struct card{
+pub struct Card{
     nome:String,
     genero:String,
     imagem:String
@@ -68,13 +68,13 @@ pub fn leitura(caminho: String) -> Vec<Jogo>{
 
 
 
-pub fn leitura_comeco(caminho: &str) ->Vec<card> {
+pub fn leitura_comeco(caminho: &str) ->Vec<Card> {
     let contents = fs::read_to_string(caminho)
         .expect("deveria ter lido o arquivo");
     let mut nome_bool = true;
     let mut nome = String::new();
     let mut genero = String::new();
-    let mut array:Vec<card> = Vec::new();
+    let mut array:Vec<Card> = Vec::new();
 
     for  c in contents.chars() {
         if c == ','{
@@ -88,7 +88,7 @@ pub fn leitura_comeco(caminho: &str) ->Vec<card> {
             imagem.push_str(&resto);
             imagem.push_str(".jpg");
 
-            array.push(card{
+            array.push(Card{
                 nome:nome.clone(), 
                 genero:genero.clone(),
                 imagem:imagem.clone()
@@ -108,7 +108,7 @@ pub fn leitura_comeco(caminho: &str) ->Vec<card> {
         }
     }
     let mut rgn = rand::thread_rng();
-    let mut retorno:Vec<card> = Vec::new();
+    let mut retorno:Vec<Card> = Vec::new();
     let mut numeros:Vec<usize> = Vec::new();
     let mut num;
     for _i in 0..10 {

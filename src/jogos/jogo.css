@@ -48,6 +48,8 @@ body, html {
 .card img {
     display: inline;
     border-radius: 5px;
+    width: 25%;
+    height: auto;
 }
 
 .card h3 {
