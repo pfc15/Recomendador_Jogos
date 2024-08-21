@@ -2,10 +2,8 @@ mod ler_arquivo;
 mod merge_sort;
 use ler_arquivo::leitura;
 use merge_sort::Jogo;
-use rand::Rng;
-use serde_json::json;
-use std::error::Error;
-use serde::Deserialize;
+use std::collections::BinaryHeap;
+use std::collections::HashMap;
 
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
@@ -41,14 +39,31 @@ fn ler_json(arquivo:String) -> Vec<Jogo> {
 }
 
 #[tauri::command]
-fn get_resposta (jogos:String) ->  Vec<Jogo>{
-    let lista = ler_json(jogos.clone());
+fn get_resposta (jogos:String) ->  Jogo {
+    let ranking_usuario = ler_json(jogos.clone());
     println!("olha oq eu recebi:");
-    for item in &lista{
-        println!("{}",item.nome);
+    let generos = ["retro.csv", "estrategia.csv", "indie.csv", "fps.csv", "fighter.csv"];
+    let mut mais_compativel = merge_sort::MergeSort{
+        comparado: Vec::new(),
+        inversoes: 0,
+        tamanho: 0,
+        recomendacoes: BinaryHeap::new(),
+        hash_posicoes: HashMap::new()
+    };
+
+
+    for g in generos {
+        let mut caminho = String::from("../src-tauri/dados/");
+        caminho.push_str(g);
+        let ranking_genero = leitura(caminho);
+        let obj_inversoes = merge_sort::MergeSort::new(ranking_usuario.clone(), ranking_genero.clone());
+        if mais_compativel.tamanho == 0 || mais_compativel.inversoes > obj_inversoes.inversoes{
+            mais_compativel = obj_inversoes.clone();
+        }
     }
-    print!("{}", lista.len());
-    lista
+    let retorno= mais_compativel.recomendacoes.pop().clone();
+
+    retorno.expect("heap não pode estar vazio")
 }
 
 

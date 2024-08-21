@@ -4,11 +4,7 @@ window.onload = function() {
     arrayString = localStorage.getItem('ranking');
     array = JSON.parse(arrayString);
     console.log(array);
-    elemento = document.getElementById("titulo");
-    for (var i =0;i<5;i++){
-        elemento.innerText += array[i] + '\n';
-    }
-
+    
     try {
         ver_resposta(arrayString)
     }catch{
@@ -20,5 +16,6 @@ window.onload = function() {
 
 async function ver_resposta(array) {
     const resposta = await invoke("get_resposta", {jogos: array});
-    console.log(resposta)
+    elemento = document.getElementById("titulo");
+    elemento.innerText = `jogo recomendado: ${resposta.nome}`
 }

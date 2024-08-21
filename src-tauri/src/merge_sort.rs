@@ -23,11 +23,12 @@ impl PartialOrd for Jogo {
     }
 }
 
+#[derive(Clone)]
 pub struct MergeSort {
     pub comparado: Vec<Jogo>,
-    hash_posicoes: HashMap<String, usize>,
+    pub hash_posicoes: HashMap<String, usize>,
     pub inversoes: usize,
-    tamanho: usize,
+    pub tamanho: usize,
     pub recomendacoes: BinaryHeap<Jogo>
 }
 
@@ -70,15 +71,11 @@ impl MergeSort {
         let (mut min, mut max) = (index_min, meio);
         while min != meio && max != index_max{
             if !(self.hash_posicoes.contains_key(&self.comparado[min].nome)){
-                println!("adicionaei, {}", self.comparado[min].nome);
                 self.hash_posicoes.insert(self.comparado[min].nome.clone(), self.tamanho);
-                self.tamanho+=1;
                 self.recomendacoes.push(self.comparado[min].clone());
             }
             if !(self.hash_posicoes.contains_key(&self.comparado[max].nome)){
-                println!("adicionaei, {}", self.comparado[max].nome);
                 self.hash_posicoes.insert(self.comparado[max].nome.clone(), self.tamanho);
-                self.tamanho+=1;
                 self.recomendacoes.push(self.comparado[max].clone());
             }
             if self.hash_posicoes[&self.comparado[min].nome] < self.hash_posicoes[&self.comparado[max].nome]{
@@ -93,19 +90,16 @@ impl MergeSort {
 
         while min != meio {
             if !(self.hash_posicoes.contains_key(&self.comparado[min].nome)){
-                println!("adicionaei, {}", self.comparado[min].nome);
                 self.hash_posicoes.insert(self.comparado[min].nome.clone(), self.tamanho);
-                self.tamanho+=1;
                 self.recomendacoes.push(self.comparado[min].clone());
             }
             temp.push(self.comparado[min].clone());
             min +=1;
         }
+
         while max != index_max {
             if !(self.hash_posicoes.contains_key(&self.comparado[max].nome)){
-                println!("adicionaei, {}", self.comparado[max].nome);
                 self.hash_posicoes.insert(self.comparado[max].nome.clone(), self.tamanho);
-                self.tamanho+=1;
                 self.recomendacoes.push(self.comparado[max].clone());
             }
             temp.push(self.comparado[max].clone());
