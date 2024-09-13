@@ -1,4 +1,4 @@
-# 
+# Dividir e Conquistar
 
 **Número da Lista**: 27<br>
 **Conteúdo da Disciplina**: dividir e conquistar, counting inversion<br>
