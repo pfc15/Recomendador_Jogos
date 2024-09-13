@@ -24,6 +24,8 @@ fn bubble_sort(lista: Vec<Jogo>) -> Vec<Jogo> {
     lista
 }
 
+// le os possíveis generos que foram comparados, e entrega uma lista de jogos para ser comparado
+// pelo merge_sort
 pub fn leitura(caminho: String) -> Vec<Jogo>{
     
     let contents = fs::read_to_string(caminho)
@@ -67,7 +69,8 @@ pub fn leitura(caminho: String) -> Vec<Jogo>{
 }
 
 
-
+// função para ler os jogos possível e escolher aleatoriamente como opção de 
+// raqueamento para a página jogos.html
 pub fn leitura_comeco(caminho: &str) ->Vec<Card> {
     let contents = fs::read_to_string(caminho)
         .expect("deveria ter lido o arquivo");
@@ -89,7 +92,7 @@ pub fn leitura_comeco(caminho: &str) ->Vec<Card> {
             imagem.push_str(".jpg");
 
             array.push(Card{
-                nome:nome.clone(), 
+                nome:nome.clone(),
                 genero:genero.clone(),
                 imagem:imagem.clone()
             });
@@ -99,6 +102,7 @@ pub fn leitura_comeco(caminho: &str) ->Vec<Card> {
             genero = String::new();
             
         }
+
         else{
             if nome_bool{
                 nome.push(c);

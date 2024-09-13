@@ -33,6 +33,7 @@ pub struct MergeSort {
 }
 
 impl MergeSort {
+    // construtor
     pub fn new(vetor_modelo:Vec<Jogo>, vetor_comparado: Vec<Jogo>) -> Self {
         let mut hash_posicoes = HashMap::new();
         let tamanho = vetor_modelo.len();
@@ -52,6 +53,7 @@ impl MergeSort {
         merge_sort
     }
 
+    
     fn sort(&mut self, index_min:usize, index_max: usize ){
         let n =index_max - index_min;
         if n==1{
@@ -69,7 +71,10 @@ impl MergeSort {
     fn merge(&mut self, index_min: usize, meio: usize, index_max: usize){
         let mut temp = Vec::new();
         let (mut min, mut max) = (index_min, meio);
+
         while min != meio && max != index_max{
+            // se valor mínimo ou máximo não estiver na hash, ou seja, não tem no ranqueamento base
+            // ele adiciona na hash como se estivesse no último lugar e adicona na heap de recomendações
             if !(self.hash_posicoes.contains_key(&self.comparado[min].nome)){
                 self.hash_posicoes.insert(self.comparado[min].nome.clone(), self.tamanho);
                 self.recomendacoes.push(self.comparado[min].clone());

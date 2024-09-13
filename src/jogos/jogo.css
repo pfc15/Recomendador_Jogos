@@ -30,6 +30,10 @@ body, html {
     background-color: #dcdcdc;
 }
 
+.section-35 h1 {
+    text-align: center;
+}
+
 .card {
     margin: auto;
     background-color: white;

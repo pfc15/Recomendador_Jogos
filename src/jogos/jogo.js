@@ -22,6 +22,8 @@ async function FetchJogos() {
       div.appendChild(h3);
       const quebra = document.createElement('br');
       div.appendChild(quebra);
+
+      
       // Create and append p element for the genre
       const p = document.createElement('p');
       p.textContent = jogo.genero;
@@ -85,7 +87,7 @@ function colocacao(event){
         
         resp.innerText = "";
         for (var i=0; i<5;i++){
-            resp.innerText += ranking[i] + ";";
+            resp.innerText += `${i+1}° `+ranking[i] + ";\n";
         }
     } else{
         console.log("deu ruim rapasiada");

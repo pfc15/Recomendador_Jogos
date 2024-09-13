@@ -1,5 +1,5 @@
 const { invoke } = window.__TAURI__.tauri;
-
+resposta = ""
 window.onload = function() {
     arrayString = localStorage.getItem('ranking');
     array = JSON.parse(arrayString);
@@ -13,7 +13,7 @@ window.onload = function() {
 }
 
 async function ver_resposta(array) {
-    const resposta = await invoke("get_resposta", {jogos: array});
+    resposta = await invoke("get_resposta", {jogos: array});
     elemento = document.getElementById("titulo");
     elemento.innerText = `jogo recomendado: ${resposta.nome}`
     elemento = document.getElementById("foto_jogo");
@@ -25,4 +25,3 @@ async function ver_resposta(array) {
 function replaceAll(str, find, replace) {
     return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
   }
-  
