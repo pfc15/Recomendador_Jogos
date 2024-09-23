@@ -70,7 +70,6 @@ fn get_resposta (jogos:String) ->  Jogo {
 
 
 fn main() {
-    
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![greet, get_jogos, get_resposta])
         .run(tauri::generate_context!())
