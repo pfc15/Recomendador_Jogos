@@ -34,3 +34,7 @@ dentro de /src-tauri:
 ```console
 cargo run
 ```
+
+## Video
+
+O video esta neste [link do google](https://drive.google.com/drive/folders/1xIbdensyIBQKSg6PQeVZTy7ghQJnvmRk?usp=sharing) drive.
